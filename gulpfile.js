@@ -31,11 +31,12 @@ var lib = function() {
     //     .pipe(gulp.dest("dist/fonts"))
 
     // 脚本
-    // gulp.src(["bower_components/jquery/dist/jquery.min.js",
-    //         "bower_components/bootstrap/dist/js/bootstrap.min.js"
-    //     ])
-    //     .pipe(concat("bootstrap.js"))
-    //     .pipe(gulp.dest("dist/scripts"))
+    gulp.src(["bower_components/jquery/dist/jquery.min.js",
+            "bower_components/bootstrap/dist/js/bootstrap.min.js"
+        ])
+        .pipe(concat("bootstrap.js"))
+        .pipe(gulp.dest("dist/scripts"))
+        .pipe(gulp.dest("../lovedlyl.github.io/learn-pug/scripts"))
 }
 
 lib();
@@ -58,6 +59,6 @@ gulp.task("default", function() {
         server: "../lovedlyl.github.io/learn-pug"
     });
 
-    gulp.watch("src/*.pug", ["convertPug", reload])
+    gulp.watch(["src/*.pug", "src/index.js"], ["convertPug", reload])
 
 })
