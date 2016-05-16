@@ -8,7 +8,7 @@ $(function() {
     });
     sidebar.html(tmpl).css({
         position: 'fixed',
-        top: 100,
+        top: 10,
         right: 30
     });
 })
