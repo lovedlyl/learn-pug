@@ -1,0 +1,42 @@
+include engin
+
+h2.text-primary Doctype
++twins
+	+source
+		|doctype html
+	+result
+		|&lt;!DOCTYPE html&gt;
+
+h3.text-primary doctype 快捷方式
+
+p doctype html
+pre &lt;!DOCTYPE html&gt;
+
+p doctype xml
+pre &lt;?xml version="1.0" encoding="utf-8" ?&gt;
+
+p doctype transitional
+pre &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"&gt;
+
+p doctype strict
+pre &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"&gt;
+
+p doctype frameset
+pre &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd"&gt;
+
+p doctype 1.1
+pre &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd"&gt;
+
+p doctype basic
+pre &lt;!DOCTYPE html PUBLIC "-//W3C//DTD XHTML Basic 1.1//EN" "http://www.w3.org/TR/xhtml-basic/xhtml-basic11.dtd"&gt;
+
+p doctype mobile
+pre &lt;!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.2//EN" "http://www.openmobilealliance.org/tech/DTD/xhtml-mobile12.dtd"&gt;
+
+h3.text-primary doctype 定制化
+p 也可以定制化自己的doctype, 比如：
++twins
+	+source
+		|doctype html my "custom doctype"
+	+result 
+		|&lt;!DOCTYPE html my "custom doctype"&gt;

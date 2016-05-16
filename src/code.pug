@@ -1,0 +1,64 @@
+include engin
+
+h2.text-primary JS表达式
+p 在pug中可嵌入JS代码，有下面三种形式
+
+h3.text-primary unbuffered 表达式
+p 如果代码以
+	code -
+	|开始，不会像结果输出任何内容
++twins
+	+source
+		|- for (var x = 0; x&lt;3; x++)
+		|	li item
+	+result
+		|&lt;li&gt;item&lt;/li&gt;
+		|&lt;li&gt;item&lt;/li&gt;
+		|&lt;li&gt;item&lt;/li&gt;
+p 同样也支持块状unbuffered表达式
++twins
+	+source
+		|- 
+		|	list = ["a", "b",
+		|		 "c", "d"
+		|		 ,"e"]
+		|each i in list
+		|	li= i
+	+result
+		|&lt;li&gt;a&lt;/li&gt;
+		|&lt;li&gt;b&lt;/li&gt;
+		|&lt;li&gt;c&lt;/li&gt;
+		|&lt;li&gt;d&lt;/li&gt;
+		|&lt;li&gt;e&lt;/li&gt;	
+
+h3.text-primary buffered 表达式		
+p 如果表达式以
+	code =
+	|开始，将会被evaluated，而且还会转义
++twins
+	+source
+		|p= "this is《espaced》"
+		|p= "this is " + "《escaped》"
+	+source
+		|&lt;p&gt;this is #lt;espaced#gt;&lt;/p&gt;
+		|&lt;p&gt;this is #lt;escaped#gt;&lt;/p&gt;
+
+h3.text-primary 非转义buffered 表达式	
+p 如果将
+	code =
+	|换成
+	code ！=
+	|，JS表达式也会被evaluated，但不会被转义
+
++twins
+	+source
+		|p!= "this is 《espaced》"
+		|p!= "this is " + "《escaped》"
+	+result
+		|&lt;p&gt;this is &lt;espaced&gt;&lt;/p&gt;
+		|&lt;p&gt;this is &lt;escaped&gt;&lt;/p&gt;
+
++danger
+	|非转义buffered代码非常危险，必须对用户输入信息转义。
+
+	

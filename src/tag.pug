@@ -1,0 +1,41 @@
+include engin
+h2.text-primary 标签
+p pug中默认行首为标签，缩进表示嵌套
++twins
+	+source
+		|ul
+		|	li item a
+		|	li item b
+		|	li item c
+	+result
+		|&lt;ul&gt;
+		|  &lt;li&gt;item a&lt;/li&gt;
+		|  &lt;li&gt;item b&lt;/li&gt;
+		|  &lt;li&gt;item c&lt;/li&gt;
+		|&lt;/ul&gt;
+p pug可自动识别自关闭标签
++twins
+	+source
+		|img
+	+result
+		|&lt;img/&gt;
+
+p 为了节省空间，还可将嵌套的标签写在一行内
++twins
+	+source
+		|a: img
+	+result
+		|&lt;a&gt;&lt;img/&gt;&lt;/a&gt;
+
+p 虽然pug可以自动识别自合闭标签，如果需要认为改变，可以在标签后添加
+	code /
+	|实现标签自合闭
++twins
+	+source
+		|div/
+		|foo/
+		|foo(bar="baz")/
+	+result
+		|&lt;div/&gt;
+		|&lt;foo/&gt;
+		|&lt;foo bar="baz"/&gt;

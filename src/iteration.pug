@@ -1,0 +1,95 @@
+include engin
+h2.text-primary 历遍
+p pug支持的历遍方式有
+	code each
+	|，
+	code for
+	|和
+	code while
+
+h3.text-primary each
++twins
+	+source
+		|ul
+		|	each val in [1,2,3]
+		|		li= val
+	+result
+		|&lt;ul&gt;
+		|  &lt;li&gt;1&lt;/li&gt;
+		|  &lt;li&gt;2&lt;/li&gt;
+		|  &lt;li&gt;3&lt;/li&gt;
+		|&lt;/ul&gt;
+p 并且还可获取索引
++twins
+	+source
+		|ul
+		|	each val, index in ["a", "b", "c"]
+		|		li \#{index + ": " + val}
+	+result
+		|&lt;ul&gt;
+		|  &lt;li&gt;0: a&lt;/li&gt;
+		|  &lt;li&gt;1: b&lt;/li&gt;
+		|  &lt;li&gt;2: c&lt;/li&gt;
+		|&lt;/ul&gt;	
+
+p 以及对对象历遍的支持
++twins
+	+source
+		|- var fruits = {apple: 23, banana: 21}
+		|ul
+		|	each num, val in fruits
+		|		li= val + ": " + num
+	+result
+		|&lt;ul&gt;
+		|  &lt;li&gt;apple: 23&lt;/li&gt;
+		|  &lt;li&gt;banana: 21&lt;/li&gt;
+		|&lt;/ul&gt;
+
+p 也支持JS调用
++twins
+	+source
+		|- var values = []
+		|ul
+		|	each i in values.length ? value: [1, 2,3]
+		|		li= i
+	+result
+		|&lt;ul&gt;
+		|  &lt;li&gt;1&lt;/li&gt;
+		|  &lt;li&gt;2&lt;/li&gt;
+		|  &lt;li&gt;3&lt;/li&gt;
+		|&lt;/ul&gt;
+
+p 也可使用
+	code for
+	|代替
+	code each
++twins
+	+source
+		|- var values = []
+		|ul
+		|	- for (var i=0; i<3; i++)
+		|		li= i
+	+result
+		|&lt;ul&gt;
+		|  &lt;li&gt;1&lt;/li&gt;
+		|  &lt;li&gt;2&lt;/li&gt;
+		|  &lt;li&gt;3&lt;/li&gt;
+		|&lt;/ul&gt;
+
+h3.text-primary while
+p 也可使用
+	code while
+	|创建循环
++twins
+	+source
+		|- var i = 0
+		|ul
+		|	while (i < 3)
+		|		li= i
+		|		-i++
+	+result
+		|&lt;ul&gt;
+		|  &lt;li&gt;1&lt;/li&gt;
+		|  &lt;li&gt;2&lt;/li&gt;
+		|  &lt;li&gt;3&lt;/li&gt;
+		|&lt;/ul&gt;				

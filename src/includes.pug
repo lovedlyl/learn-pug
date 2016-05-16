@@ -1,0 +1,117 @@
+h2.text-primary include 包含
+p 利用
+	code include
+	|关键字可以包含其它文件中的内容
++twins
+	+source
+		|//- index.jade
+		|doctype html
+		|html
+		|  include ./includes/head.jade
+		|  body
+		|    h1 My Site
+		|    p Welcome to my super lame site.
+		|    include ./includes/foot.jade	
+	+result
+		|&lt;!doctype html&gt;
+		|&lt;html&gt;
+		|  &lt;head&gt;
+		|    &lt;title&gt;My Site&lt;/title&gt;
+		|    &lt;script src='/javascripts/jquery.js'&gt;&lt;/script&gt;
+		|    &lt;script src='/javascripts/app.js'&gt;&lt;/script&gt;
+		|  &lt;/head&gt;
+		|  &lt;body&gt;
+		|    &lt;h1&gt;My Site&lt;/h1&gt;
+		|    &lt;p&gt;Welcome to my super lame site.&lt;/p&gt;
+		|    &lt;div id="footer"&gt;
+		|      &lt;p&gt;Copyright (c) foobar&lt;/p&gt;
+		|    &lt;/div&gt;
+		|  &lt;/body&gt;
+		|&lt;/html&gt;
++twins
+	+source
+		|//- includes/head.jade
+		|head
+		|  title My Site
+		|  script(src='/javascripts/jquery.js')
+		|  script(src='/javascripts/app.js')
++twins
+	+source
+		|//- includes/foot.jade
+		|#footer
+		|  p Copyright (c) foobar	
+
+h3.text-primary 纯文本
+p 还可以引入纯文本内容
+
++twins
+	+source
+		|//- index.jade
+		|doctype html
+		|html
+		|  head
+		|    style
+		|      include style.css
+		|  body
+		|    h1 My Site
+		|    p Welcome to my super lame site.
+		|    script
+		|      include script.js
+	+result
+		|&lt;!doctype html&gt;
+		|&lt;html&gt;
+		|  &lt;head&gt;
+		|    &lt;style&gt;
+		|      /* style.css */
+		|      h1 { color: red; }
+		|    &lt;/style&gt;
+		|  &lt;/head&gt;
+		|  &lt;body&gt;
+		|    &lt;h1&gt;My Site&lt;/h1&gt;
+		|    &lt;p&gt;Welcome to my super lame site.&lt;/p&gt;
+		|    &lt;script&gt;
+		|      // script.js
+		|      console.log('You are awesome');
+		|    &lt;/script&gt;
+		|  &lt;/body&gt;
+		|&lt;/html&gt;
+
++twins
+	+source
+		|/* style.css */
+		|h1 { color: red; }
+
++twins
+	+source
+		|// script.js
+		|console.log('You are awesome');				      
+
+
+h3.text-primary 过滤文档
+p 也可引入过滤文档
+
++twins
+	+source
+		|//- index.jade
+		|doctype html
+		|html
+		|  head
+		|    title An Article
+		|  body
+		|    include:markdown article.md
+	+result
+		|&lt;!doctype html&gt;
+		|&lt;html&gt;
+		|  &lt;head&gt;
+		|    &lt;title&gt;An Article&lt;/title&gt;
+		|  &lt;/head&gt;
+		|  &lt;body&gt;
+		|    &lt;h1&gt;article.md&lt;/h1&gt;
+		|    &lt;p&gt;This is an article written in markdown.&lt;/p&gt;
+		|  &lt;/body&gt;
+		|&lt;/html&gt;		
+
++twins
+	+source
+		|# article.md
+		|This is an article written in markdown.		

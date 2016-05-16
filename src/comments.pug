@@ -1,0 +1,51 @@
+h2.text-primary 注释
+p 被编译的注释"//"
++twins
+	+source
+		|// 我会被编译
+		|p foo
+		|p bar
+	+result
+		|&lt;!-- 我会被编译--&gt;
+		|&lt;p&gt;foo&lt;/p&gt;
+		|&lt;p&gt;bar&lt;/p&gt;
+p 不会被编译的注释“//-”
++twins
+	+source
+		|//- 我不会被编译
+		|p foo
+		|p bar
+	+result
+		|&lt;p&gt;foo&lt;/p&gt;
+		|&lt;p&gt;bar&lt;/p&gt;
+
+h3.text-primary 块状注释
+p 同样支持块状注释
++twins
+	+source
+		|body
+		|	//
+		|		as much text
+		|		can go here 
+	+result
+		|&lt;body&gt;
+		|	&lt;!-- as much text can go here --&gt;
+		|&lt;/body&gt;
+
+h3.text-primary 条件注释
+p pug 不支持条件注释，使用原生的HTML字符串即可
++twins
+	+source
+		|&lt;!--[if IE 8]&gt;
+		|&lt;html lang="en" class="lt-ie9"&gt;
+		|&lt;![endif]--&gt;
+		|&lt;!--[if gt IE 8]&gt;&lt;!--&gt;
+		|&lt;html lang="en"&gt;
+		|&lt;!--&lt;![endif]--&gt;
+	+result
+		|&lt;!--[if IE 8]&gt;
+		|&lt;html lang="en" class="lt-ie9"&gt;
+		|&lt;![endif]--&gt;
+		|&lt;!--[if gt IE 8]&gt;&lt;!--&gt;
+		|&lt;html lang="en"&gt;
+		|&lt;!--&lt;![endif]--&gt;			

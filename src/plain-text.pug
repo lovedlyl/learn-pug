@@ -1,0 +1,43 @@
+include engin
+h2.text-primary 纯文本
+
+p pug提供了3种文本书写方式
+
+h3.text-primary 管道（pipe）文本
+p 在文档中插入文本的最简单方式就是将文本置于
+	code |
+	|后
++twins
+	+source
+		|| Plain text can include &lt;strong&gt;html&lt;/strong&gt;
+		|p
+		|	| It must always be on its own line
+	+result
+		|Plain text can include &lt;strong&gt;html&lt;/strong&gt;
+		|&lt;p&gt;It must always be on its own line&lt;/p&gt;
+
+h3.text-primary 也可将文本直接置于文本后
++twins
+	+source
+		|p Plain text can include &lt;strong&gt;html&lt;/strong&gt;
+	+result
+		|&lt;p&gt;Plain text can include &lt;strong&gt;html&lt;/strong&gt;&lt;/p&gt;
+
+h3.text-primary 块文本
+p 如果文本过多，可以在标签后添加
+	code .
+	|，然后将文本换行按缩进书写
++twins
+	+source
+		|script.
+		|	if(usingPug)
+		|		console.log("hello")
+		|	else
+		|		console.log("try it")
+	+result
+		|&lt;script&gt;
+		|  if(usingPug)
+		|  	console.log("hello")
+		|  else
+		|  	console.log("try it")
+		|&lt;/script&gt;

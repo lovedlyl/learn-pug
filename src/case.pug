@@ -1,0 +1,46 @@
+include engin
+
+h2.text-primary Case
+p 有点像JS中的case语句，不过形式略有不同
++twins
+	+source
+		|- var friends = 10
+		|case friends
+		|	when 0
+		|		p you have no friends
+		|	when 1
+		|		p you have a friend
+		|	default
+		|		p you hanve #{friends} friends
+	+result
+		|&lt;p&gt;you hanve 10 friends&lt;/p&gt;
+
+
+h3.text-primary 默认不中断
+p 默认不中断可以将多个
+	code when
+	|连续在一起
++twins
+	+source
+		|- var friends = 1
+		|case friends
+		|	when 0
+		|	when 1
+		|		p you have few friends
+		|	default
+		|		p you have #{friends} friends
+	+source
+		|&lt;p&gt;you have few friends&lt;/p&gt;
+
+h3.text-primary 块扩展
+p 也可使用块扩展的形式
++twins
+	+source
+		|- var friends = 1
+		|case friends
+		|	when 0: p you have no friends
+		|	when 1: p you have a friend
+		|	default: p you have #{friends} friends
+	+result
+		|&lt;p&gt;you have a friend&lt;/p&gt;
+

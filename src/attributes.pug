@@ -1,0 +1,161 @@
+include engin
+h2.text-primary 属性
+p 标签属性看起来同HTML属性一样，不过实际上是JavaScript表达式
++twins
+	+source
+		|a(href="google.com") google
+		|a(class="button" href="google.com") Google
+	+result
+		|&lt;a href="google.com"&gt;Google&lt;/a&gt;&lt;a class="button" href="google.com"&gt;Google&lt;/a&gt;
+
+p 所有正常的JS表达式都可以使用
++twins
+	+source
+		|- var authenticated = true
+		|body(class=authenticated? "auth": "anon")
+	+result
+		|&lt;body class="auth"&gt;&lt;/body&gt;
+
+p 如果有多个属性，可以跨行书写
++twins
+	+source
+		|input(
+		|	type="checkbox"
+		|	name="agreement"
+		|	checked
+		|)
+	+result
+		|&lt;input type="checkbox" name="agreement" checked="checked"/&gt;
+
+h3.text-primary 转义属性
+p 默认情况下，所有字符都会被转义，如果不需要转义，使用
+	code !=
+	|代替
+	code =
++twins
+	+source
+		|div(escapged="&lt;code&gt;")
+		|div(unespaced!="&lt;code&gt;")
+	+result
+		|&lt;div escapged="#lt;code#gt;"&gt;&lt;/div&gt;
+		|&lt;div unespaced="&lt;code&gt;"&gt;&lt;/div&gt;
+
++danger 
+	|非转义字符非常危险，处理用户输入信息时一定要转义语义化
+
+
+h3.text-primary 布尔值属性
+p 支持布尔值常量
+	code true
+	|和
+	code false
+	|如果没有传递，则默认为
+	code true
++twins
+	+source
+		|input(type="checkbox" checked)
+		|input(type="checkbox" checked=true)
+		|input(type="checkbox" checked=false)
+		|input(type="checkbox" checked=true.toString())
+	+result
+		|&lt;input type="checkbox" checked="checked" /&gt;
+		|&lt;input type="checkbox" checked="checked" /&gt;
+		|&lt;input type="checkbox" /&gt;
+		|&lt;input type="checkbox" checked="true"/&gt;
+
+p 如果有doctype声明为html，则采用所有浏览器都识别的语法方式
++twins
+	+source
+		|input(type="checkbox" checked)
+		|input(type="checkbox" checked=true)
+		|input(type="checkbox" checked=false)
+		|input(type="checkbox" checked=true && "checked")
+	+result
+		|&lt;input type="checkbox" checked="checked" &gt;
+		|&lt;input type="checkbox" checked="checked" &gt;
+		|&lt;input type="checkbox" &gt;
+		|&lt;input type="checkbox" checked="checked"&gt;
+
+h3.text-primary style属性
+p
+	code style
+	|属性可以是一般的字符串属性，也可以是JS对象
++twins
+	+source
+		|a(style={color: "red", "font-size": "12px"})
+	+result
+		|&lt;a style="color:red;font-size:12px"&gt;&lt;/a&gt;
+
+h3.text-primary class属性
+p
+	code class
+	|属性可以是一般的字符串属性，也可以是数组，并且支持叠加
++twins
+	+source
+		|- var classes = ["foo", "bar", "baz"]
+		|a(class=classes)
+		|a(class=classes class="bing")
+	+result
+		|&lt;a class="foo bar baz"&gt;&lt;/a&gt;&lt;a class="foo bar baz bing"&gt;&lt;/a&gt;		
+p 并且还支持按条件添加类
++twins
+	+source
+		|- var currentUrl = "/about"
+		|a(class={active: currentUrl==="/a"}) home
+		|a(class={active: currentUrl==="/about"}) about
+	+result
+		|&lt;a&gt;home&lt;/a&gt;&lt;a class="active"&gt;about&lt;/a&gt;
+
+h3.text-primary class字面量
+p 声明类可以采用
+	code .className
+	|的形式
++twins
+	+source
+		|a.button
+	+result
+		|&lt;a class="button"&gt;&lt;/a&gt;
+p 对于DIV标签也可以采用直接写类名的形式
++twins
+	+source
+		|.content
+	+result
+		|div class="content"&gt;
+
+h3.text-primary ID字面量
+p 声明ID属性采用
+	code #idName
+	|的形式，
++twins
+	+source
+		|a#mani-link
+	+result
+		|&lt;a id="mani-link"&gt;&lt;/a&gt;
+p 对于DIV标签也可以采用直接写ID名的形式
++twins
+	+source
+		|#content
+	+result
+		|&lt;div id="content"&gt;&lt;/div&gt;
+
+h3.text-primary &attributes
+p
+	code &attributes
+	|属可以用来为标签追加属性
++twins
+	+source
+		|#foo(data-foo="bar")&attributes({"data-bar": "foo"})
+	+result
+		|&lt;div id="foo" data-foo="bar" data-bar="foo"&gt;&lt;/div&gt;
+
+p 还可以是表示对象的变量
++twins
+	+source
+		|-var attributes = {"data-bar": "foo"}
+		|#foo(data-foo="bar")&attributes(attributes)
+	+result
+		|&lt;div id="foo" data-foo="bar" data-bar="foo"&gt;&lt;/div&gt;
++danger
+	|使用
+	code &attributes
+	|属性不会自动转义，不过在混合器中调用时会自定转义。

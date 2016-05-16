@@ -1,0 +1,46 @@
+h2.text-primary 模板继承
+p pug通过
+	code block
+	|和
+	code extends
+	|两个关键字完成继承。如果子模板中的有
+	code block
+	|重复，则覆盖。
+p layout.pug
+pre
+	|html
+	|  head
+	|    title My Site - #{title}
+	|    block scripts
+	|      script(src='/jquery.js')
+	|  body
+	|    block content
+	|    block foot
+	|      #footer
+	|        p some footer content
+p 如果page-a.pug需要继承layout.pug，只需在声明 
+	code extends layout
+	|即可，注意page-a.pug中没有声明foot块，也会出现在编译文档中
+p page-a.pug
+pre
+	|extends ./layout.jade	
+	|block scripts
+	|  script(src='/jquery.js')
+	|  script(src='/pets.js')	
+	|block content
+	|  h1= title
+	|  each pet in pets
+	|    include pet
+
+h3.text-primary 追加
+p 如果需要在继承的默认块上追加内容，可以使用
+	code append
+	|和
+	code preppend
+	|关键字
+p page-b.pug
+pre
+	|extends layout
+	|append scripts
+	|  script(src='/vendor/three.js')
+	|  script(src='/game.js')

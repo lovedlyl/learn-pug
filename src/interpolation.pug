@@ -1,0 +1,66 @@
+include engin
+
+h2.text-primary 插入
+
+h3.text-primary 字符串插入，转义
+p 使用
+	code “=”
+	|或字符串中使用插入符号
+	code
+		| ”\#{}“
+	|可以实现变量插入。并且会自动转义。
+
++twins
+	+source
+		|- var title = "pug"
+		|- var name = "claudio"
+		|- var desc = "learn"
+		|- var escape = "&lt;span&gt;espace!&lt;/span&gt;"
+		|h1= title
+		|p I am \#{name}, \#{desc}ing \#{title}, \#{escape}
+	+result
+		|&lt;h1&gt;pug&lt;/h1&gt;
+		|&lt;p&gt;I am claudio, learning pug, #lt;span#gt;espace!#lt;/span#gt;&lt;/p&gt;	
+
+p 还可以在
+	code ”\#{}“
+	|中调用JS
++twins
+	+source
+		|- var name = "claudio"
+		|p my name is \#{name.toUpperCase()}
+	+result
+		|&lt;p&gt;my name is CLAUDIO&lt;/p&gt;
+
+h3.text-primary  字符串插入，非转义
+p 也可使用字符串的非转义方式，只需将
+	code \#{}
+	|替换为
+	code \！{}
+	|即可。
+
++twins
+	+source
+		|- var risk = "&lt;em&gt;this is Risk!&lt;/em&gt;"
+		|p use unescape, ！{risk}
+	+result
+		|&lt;p&gt;use unescape, &lt;em&gt;this is Risk!&lt;/em&gt;&lt;/p&gt;
+
+h3.text-primary 大段纯文本插入
+p 插入大段纯文本时，用
+	code 标签.
+	|的形式：
++twins
+	+source
+		|p.
+		|	this is claudio,
+		|	who am i,
+		|	where am i going,
+		|	where am i from
+	+result
+		|&lt;p&gt;
+		|  this is claudio,
+		|  who am i,
+		|  where am i going,
+		|  where am i from
+		|&lt;/p&gt;	

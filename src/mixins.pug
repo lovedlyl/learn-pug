@@ -1,0 +1,121 @@
+include engin
+
+h2.text-primary mixin 混合器
+p 混合器最大的好处就是提供代码重用
++twins
+	+source
+		|//- decalaration
+		|mixin list
+		|	ul
+		|		li far
+		|		li bar
+		|		li baz
+		|//- use
+		|+list
+		|+list
+	+result
+		|&lt;ul&gt;
+		|  &lt;li&gt;far&lt;/li&gt;
+		|  &lt;li&gt;bar&lt;/li&gt;
+		|  &lt;li&gt;baz&lt;/li&gt;
+		|&lt;/ul&gt;
+		|&lt;ul&gt;
+		|  &lt;li&gt;far&lt;/li&gt;
+		|  &lt;li&gt;bar&lt;/li&gt;
+		|  &lt;li&gt;baz&lt;/li&gt;
+		|&lt;/ul&gt;
+p 混合器实质上是被编译为函数，所以可以带参数
++twins
+	+source
+	|mixin pet(name)
+	|		li.pet= name
+	|ul
+	|	+pet("dog")
+	|	+pet("cat")
+	|	+pet("pig")
+	+result
+		|&lt;ul&gt;
+		|  &lt;li class="pet"&gt;dog&lt;/li&gt;
+		|  &lt;li class="pet"&gt;cat&lt;/li&gt;
+		|  &lt;li class="pet"&gt;pig&lt;/li&gt;
+		|&lt;/ul&gt;	
+
+h3.text-primary 混合器block
+p 调用混合器时，可以为其添加一个pug块，使其作为混合器新增内容
++twins
+	+source
+		|mixin article(title)
+		|	.article
+		|		.article-wrapper
+		|			h1= title
+		|			if block
+		|				block
+		|			else
+		|				p no content provided
+		|+article("hello")
+		|+article("hello")
+		|	P this is claudio
+		|	p learing pug
+	+result
+		|&lt;div class="article"&gt;
+		|  &lt;div class="article-wrapper"&gt;
+		|    &lt;h1&gt;hello&lt;/h1&gt;
+		|    &lt;p&gt;no content provided&lt;/p&gt;
+		|  &lt;/div&gt;
+		|&lt;/div&gt;
+		|&lt;div class="article"&gt;
+		|  &lt;div class="article-wrapper"&gt;
+		|    &lt;h1&gt;hello&lt;/h1&gt;
+		|    &lt;P&gt;this is claudio&lt;/P&gt;
+		|    &lt;p&gt;learing pug&lt;/p&gt;
+		|  &lt;/div&gt;
+		|&lt;/div&gt;	
+
+h3.text-primary 混合器attributes
+p 使用常量
+	code attributes
+	|可获得调用混合器时传递的所有属性
++twins
+	+source
+		|mixin link(name, href)
+		|	a(class=attributes.class href=href)= name
+		|+link("foo", "/foo")(class="btn")
+	+result
+		|&lt;a class="btn" href="/foo"&gt;foo&lt;/a&gt;
+p 也可以使用
+	code &attributes
+	|传递所有属性
++twins
+	+source
+		|mixin link(name, href)
+		|	a(href=href)&attributes(attributes)= name
+		|+link("bar", "/bar")(data-toggle="collapse", data-target="#id")
+	+result
+		|&lt;a href="/bar" data-toggle="collapse" data-target="#id"&gt;bar&lt;/a&gt;
+
+p 对于类
+	code .class
+	|可以不必在括号内传递
++twins
+	+source
+		|mixin link(name, href)
+		|	a(href=href)&attributes(attributes)= name
+		|+link("bar", "/bar")(data-toggle="collapse", data-target="#id").btn
+	+result 
+		|&lt;a class="btn" href="/bar" data-toggle="collapse" data-target="#id"
+
+h3.text-primary 缺省参数
+p 如果参数不可知，可以用下列方式声明混合器
++twins
+	+source
+		|mixin my-list(id, ...items)
+		|	ul(id=id)
+		|		each item in items
+		|			li= item
+		|+my-list("my-list", 1,2,3)
+	+result
+		|&lt;ul id="my-list"&gt;
+		|  &lt;li&gt;1&lt;/li&gt;
+		|  &lt;li&gt;2&lt;/li&gt;
+		|  &lt;li&gt;3&lt;/li&gt;
+		|&lt;/ul&gt;	
